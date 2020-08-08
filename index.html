@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>River</title>
+   <link rel="stylesheet" href="./style.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+   <div id="initor">
+      <table class="table table-borderless bg-secondary">
+         <tr>
+            <td>Enter number of monk:</td>
+            <td><input id="initor__valueMonk" type="number" min="0"></td>
+            <td><img src="./monk.png" alt="monk image"></td>
+            <td rowspan="3">
+               <div class="btn btn-success" id="appendInputor">Let go!</div>
+            </td>
+         </tr>
+         <tr>
+            <td>Enter number of demon:</td>
+            <td><input id="initor__valueDemon" type="number" min="0"></td>
+            <td><img src="./demon.png" alt="demon image"></td>
+         </tr>
+         <tr>
+            <td>Enter capacity of the ship:</td>
+            <td><input id="initor__valueCapacity" type="number" min="1"></td>
+            <td><img src="./boat.png" alt="ship image"></td>
+         </tr>
+      </table>
+   </div>
+
+   <div class="bg-light" id="controller">
+      <button class="btn btn-primary" id="controller__move">move</button>
+      <button class="btn btn-dark" id="controller__restart">restart</button>
+      <button class="btn btn-info" id="controller__help">solution?</button>
+   </div>
+
+   <div class="gamebar__bank" id="gamebar__abank">
+      <span class="gamebar__bank--item monk" bank='a' pos='bank'></span>
+      <span class="gamebar__bank--item monk" bank='a' pos='bank'></span>
+      <span class="gamebar__bank--item monk" bank='a' pos='bank'></span>
+      <span class="gamebar__bank--item demon" bank='a' pos='bank'></span>
+      <span class="gamebar__bank--item demon" bank='a' pos='bank'></span>
+      <span class="gamebar__bank--item demon" bank='a' pos='bank'></span>
+   </div>
+   <div id="gamebar__river">
+      <div id="gamebar__river--ship" bank="a">
+         <div id="gamebar__river--ship--items"></div>
+         <img id="gamebar__river--ship--body" src="./boat.png" alt="ship">
+      </div>
+   </div>
+
+   <div class="gamebar__bank" id="gamebar__bbank">
+   </div>
+
+   <script src="./automatic_solution.js"></script>
+   <script src="./handle_solution.js"></script>
+</body>
+
+</html>
