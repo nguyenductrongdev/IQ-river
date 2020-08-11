@@ -46,7 +46,6 @@ class State {
         State.MONK_MAX = monk;
         State.DEMON_MAX = demon;
         State.CAPACITY_MAX = capacity;
-        return this;
     }
 
     setMaxCpacity(capacity) {

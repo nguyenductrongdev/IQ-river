@@ -102,10 +102,10 @@ function renderInput(nbMonk = 0, nbDemon = 0) {
             $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0.2s' });
         });
         for (let i = 1; i <= nbMonk; ++i) {
-            aBank.append("<span class='gamebar__bank--item monk' bank='a' pos='bank'></span>");
+            aBank.append('<img class="gamebar__bank--item monk" bank="a" pos="bank" src="./monk.png" alt="monk">');
         }
         for (let i = 1; i <= nbDemon; ++i) {
-            aBank.append("<span class='gamebar__bank--item demon' bank='a' pos='bank'></span>");
+            aBank.append('<img class="gamebar__bank--item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
         }
         setActionAllItem();
         return true;
@@ -139,8 +139,6 @@ function stateIsValid() {
         if (totalBMonk > 0) {
             bIsValid = totalBMonk >= totalBDemon;
         }
-        // console.log(`shipPos: ${shipPos}, totalMonk ${totalAMonk} (${nbDeckMonk}+${nbAMonk}) 
-        // totalDemon ${totalADemon} (${nbDeckDemon}+${nbADemon})`);
 
     } else if (shipPos === 'b') {
         let totalAMonk = nbAMonk;
@@ -152,8 +150,6 @@ function stateIsValid() {
         if (totalBMonk > 0) {
             bIsValid = totalBMonk >= totalBDemon;
         }
-        // console.log(`shipPos: ${shipPos}, totalMonk ${totalBMonk} (${nbDeckMonk}+${nbBMonk}) 
-        // totalDemon ${totalBDemon} (${nbDeckDemon}+${nbBDemon})`);
     }
     return aIsValid && bIsValid;
 }
@@ -164,14 +160,16 @@ function isGoal() {
         let nbDeckMonk = 0;
         let nbDeckDemon = 0;
 
-        let nbBMonk = Array.from(bBank.children()).filter(item => item.getAttribute('class').includes('monk')).length;
-        let nbBDemon = Array.from(bBank.children()).filter(item => item.getAttribute('class').includes('demon')).length;
+        let nbBMonk = bBank.children('.monk').length;
+        let nbBDemon = bBank.children('.demon').length;
 
         if (shipDeck.children().length > 0) {
-            nbDeckMonk = Array.from(shipDeck.children()).filter(item => item.getAttribute('class').includes('monk')).length;
-            nbDeckDemon = Array.from(shipDeck.children()).filter(item => item.getAttribute('class').includes('demon')).length;
+            nbDeckMonk = shipDeck.children('.monk').length;
+            nbDeckDemon = shipDeck.children('.demon').length;
         }
-        return (nbBMonk + nbDeckMonk === maxMonk) && (nbBDemon + nbDeckDemon === maxDemon);
+        return (nbBMonk + nbDeckMonk === maxMonk) &&
+            (nbBDemon + nbDeckDemon === maxDemon) &&
+            (shipPos === 'b');
     } else {
         return false;
     }
@@ -245,10 +243,9 @@ $('document').ready(function () {
             let stt = new State(monk, demon, posShip);
             let operators = AISolving.getSolution(stt);
             if (operators.length === 0) {
-                alert('no solutions');
+                console.log('no solutions');
                 return;
             }
-            // oparate step by step of solution
             for (let i = 0; i < operators.length; ++i) {
                 await renderStep(operators[i]);
             }
@@ -257,7 +254,6 @@ $('document').ready(function () {
 });
 
 function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
-    // console.log(Array.from(gamebarBankItems).length, items.length);
     for (let item of items) {
         item.onclick = function () {
             let Jthis = $(this);
@@ -306,7 +302,6 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                 }
             } else {
                 alert("can't get this action");
-                // console.log(`cause ${nbShipDeckItems} <= 0`);
             }
         }
     }
