@@ -202,9 +202,6 @@ $('document').ready(function () {
     controller
         .click(async function () {
             let nbShipDeckItems = shipDeck.children().length;
-            let riverWidth = parseFloat(ship.parent().css('width'));
-            let shipWidth = parseFloat(ship.css('width'));
-
             if (nbShipDeckItems > 0) {
                 switch (ship.attr('bank')) {
                     case 'a':
@@ -262,11 +259,9 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                 switch (Jthis.attr('bank')) {
                     case 'a':
                         if (itemPos === 'bank') {
-                            if ($('#gamebar__river--ship--items').children().length < maxCapacity) {
+                            if (shipDeck.children().length < maxCapacity) {
                                 // aBank.remove(Jthis);
                                 Jthis.remove();
-                                // console.log(aBank, Jthis);
-
                                 shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
                             } else {
                                 alert("The ship fully, can't put more anyone")
@@ -283,7 +278,7 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                         break;
                     case 'b':
                         if (itemPos === 'bank') {
-                            if ($('#gamebar__river--ship--items').children().length < maxCapacity) {
+                            if (shipDeck.children().length < maxCapacity) {
                                 // bBank.remove(Jthis);
                                 Jthis.remove();
                                 shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
