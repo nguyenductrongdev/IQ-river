@@ -241,12 +241,14 @@ $('document').ready(function () {
             let monk = aBank.children('.monk').length;
             let demon = aBank.children('.demon').length;
             let posShip = ship.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
-            let stt = new State(monk, demon, posShip).setMax(maxMonk, maxDemon, maxCapacity);
+            State.setMax(maxMonk, maxDemon, maxCapacity);
+            let stt = new State(monk, demon, posShip);
             let operators = AISolving.getSolution(stt);
             if (operators.length === 0) {
-                console.log('no solutions');
+                alert('no solutions');
                 return;
             }
+            // oparate step by step of solution
             for (let i = 0; i < operators.length; ++i) {
                 await renderStep(operators[i]);
             }

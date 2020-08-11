@@ -8,8 +8,6 @@ class Tool {
     }
 }
 
-
-
 class State {
     static MONK_MAX = 0;
     static DEMON_MAX = 0;
@@ -44,7 +42,7 @@ class State {
         }
     }
 
-    setMax(monk = 0, demon = 0, capacity = 0) {
+    static setMax(monk = 0, demon = 0, capacity = 0) {
         State.MONK_MAX = monk;
         State.DEMON_MAX = demon;
         State.CAPACITY_MAX = capacity;
@@ -141,7 +139,6 @@ class Node {
 }
 
 class AISolving {
-
     static getOperators() {
         let operators = [];
         for (let i = 0; i <= State.CAPACITY_MAX; i++) {
@@ -170,9 +167,7 @@ class AISolving {
         let root = new Node(state, null, -1);
         let open = new Stack();
         let close = new Stack();
-
         open.push(root);
-
         while (!open.isEmpty()) {
             let node = open.pop();
             close.push(node);

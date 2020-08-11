@@ -1,0 +1,5 @@
+Questions/
+node_modules/
+.vscode/
+Test/
+package-lock.json
