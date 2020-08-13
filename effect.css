@@ -1,0 +1,22 @@
+.wave-in-btn {
+    border: 1px solid black;
+    outline: none 0.5px black;
+    outline-offset: 3rem;
+    padding: 0.5rem;
+}
+
+.wave-in-btn:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px grey;
+}
+
+.wave-in-btn:active {
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: 0rem;
+    transition:
+        outline-offset .2s,
+        outline-color .3s;
+}
