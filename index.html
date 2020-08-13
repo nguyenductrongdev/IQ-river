@@ -7,6 +7,7 @@
    <title>River</title>
    <link rel="stylesheet" href="./style.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="./effect.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -20,7 +21,7 @@
             <td><input id="initor__valueMonk" type="number" min="0"></td>
             <td><img src="./monk.png" alt="monk image"></td>
             <td rowspan="3">
-               <div class="btn btn-success" id="appendInputor">Let go!</div>
+               <span class="btn btn-success wave-in-btn" id="appendInputor">Let go!</span>
             </td>
          </tr>
          <tr>
@@ -37,9 +38,9 @@
    </div>
 
    <div class="bg-light" id="controller">
-      <button class="btn btn-primary" id="controller__move">move</button>
-      <button class="btn btn-dark" id="controller__restart">restart</button>
-      <button class="btn btn-info" id="controller__help">solution?</button>
+      <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
+      <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
+      <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
    </div>
 
    <div class="gamebar__bank" id="gamebar__abank">
