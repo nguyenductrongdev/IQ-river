@@ -6,6 +6,7 @@ const gamebarBankItems = $('.gamebar__bank--item');
 const aBank = $('#gamebar__abank');
 const bBank = $('#gamebar__bbank');
 const appendInputor = $('#appendInputor');
+const MESSAGE_BAR = $('#message-bar');
 let maxMonk = 3;
 let maxDemon = 3;
 let maxCapacity = 2;
@@ -118,6 +119,7 @@ function renderInput(nbMonk = 0, nbDemon = 0) {
         }
         setActionAllItem();
         setStatusBar();
+        MESSAGE_BAR.html('Let game!! Good luck!!!');
         return true;
     } else {
         return false;
@@ -191,6 +193,8 @@ $('document').ready(function () {
 
     setStatusBar();
 
+    MESSAGE_BAR.html('Let game!! Good luck!!!');
+
     restart
         .click(createNewGame);
 
@@ -207,8 +211,10 @@ $('document').ready(function () {
             $('#initor__valueMonk').val('');
             $('#initor__valueDemon').val('');
             $('#initor__valueCapacity').val('');
-            if (!renderInput(nbMonk, nbDemon)) alert('Number of Monk must greater than number of demon');
-            else setTimeout(() => alert('Let go !!!'), 0.1);
+            if (!renderInput(nbMonk, nbDemon))
+                MESSAGE_BAR.html('Number of Monk must greater than number of demon');
+            else
+                MESSAGE_BAR.html('Let game!! Good luck!!!');
         });
 
     controller
@@ -230,18 +236,12 @@ $('document').ready(function () {
 
                 setStatusBar();
 
-                if (!stateIsValid()) {
-                    alert('You lose!');
-                    createNewGame();
-                }
+                if (!stateIsValid()) MESSAGE_BAR.html('You lose!');
 
-                if (isGoal()) {
-                    alert('Complete game!');
-                    createNewGame();
-                }
+                if (isGoal()) MESSAGE_BAR.html('Complete game!');
 
             } else {
-                alert("can't get this action");
+                MESSAGE_BAR.html('Cannot move the ship is empty');
             }
         });
 
@@ -254,13 +254,13 @@ $('document').ready(function () {
             let stt = new State(monk, demon, posShip);
             let operators = AISolving.getSolution(stt);
             if (operators.length === 0) {
-                console.log('no solutions');
+                MESSAGE_BAR.html('This input is no solutions');
                 return;
             }
             for (let i = 0; i < operators.length; ++i) {
                 await renderStep(operators[i]);
             }
-            if (isGoal()) alert('complete game!!!');
+            if (isGoal()) MESSAGE_BAR.html('complete game!!!');
         });
 });
 
@@ -278,7 +278,7 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                                 Jthis.remove();
                                 shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
                             } else {
-                                alert("The ship fully, can't put more anyone")
+                                MESSAGE_BAR.html('The ship fully, cannot put more anyone');
                             }
 
                         } else if (itemPos === 'ship') {
@@ -297,7 +297,7 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                                 Jthis.remove();
                                 shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
                             } else {
-                                alert("The ship fully, can't put more anyone")
+                                MESSAGE_BAR.html('The ship fully, cannot put more anyone');
                             }
                         } else if (itemPos === 'ship') {
                             shipDeck.remove(Jthis);

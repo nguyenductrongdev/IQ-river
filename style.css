@@ -95,9 +95,11 @@ body {
 }
 
 .gamebar__bank--item:hover {
-    /* background-color: darkblue; */
-    width: 3.3rem;
-    height: 3.3rem;
+    box-shadow: 
+        0.2rem 0.2rem 0.2rem 0.1rem orangered,
+        0.2rem -0.2rem 0.2rem 0.1rem orangered,
+        -0.2rem 0.2rem 0.2rem 0.1rem orangered,
+        -0.2rem -0.2rem 0.2rem 0.1rem orangered;
 }
 
 .demon {
@@ -162,7 +164,19 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     min-width: 8vw;
     border-radius: 2rem;
     background-color: lightslategray;
+}
+
+#message-bar {
+    width: 100vw;
+    height: 5vh;
+    overflow: auto;
+    background-color: lightblue;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
