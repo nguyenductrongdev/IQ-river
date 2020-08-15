@@ -6,8 +6,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>River</title>
    <link rel="stylesheet" href="./style.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="./effect.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
          <tr>
             <td>Enter number of monk:</td>
             <td><input id="initor__valueMonk" type="number" min="0"></td>
-            <td><img src="./monk.png" alt="monk image"></td>
+            <td><img class="item-img" src="./monk.png" alt="monk image"></td>
             <td rowspan="3">
                <span class="btn btn-success wave-in-btn" id="appendInputor">Let go!</span>
             </td>
@@ -27,12 +27,12 @@
          <tr>
             <td>Enter number of demon:</td>
             <td><input id="initor__valueDemon" type="number" min="0"></td>
-            <td><img src="./demon.png" alt="demon image"></td>
+            <td><img class="item-img" src="./demon.png" alt="demon image"></td>
          </tr>
          <tr>
             <td>Enter capacity of the ship:</td>
             <td><input id="initor__valueCapacity" type="number" min="1"></td>
-            <td><img src="./boat.png" alt="ship image"></td>
+            <td><img class="item-img" src="./boat.png" alt="ship image"></td>
          </tr>
       </table>
    </div>
@@ -41,6 +41,28 @@
       <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
       <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
       <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
+   </div>
+
+   <div id="status-bar">
+      <div class="status-bar__side" id="status-bar__left">
+         <div class="status-bar__wraper">
+            <img class="item-img" src="./monk.png" alt="monk"><span id="js-abank-monk">0</span>
+            <img class="item-img" src="./demon.png" alt="demon"><span id="js-abank-demon">0</span>
+         </div>
+
+      </div>
+      <div class="status-bar__side" id="status-bar__center">
+         <div class="status-bar__wraper">
+            <img class="item-img" src="./monk.png" alt="monk"><span id="js-ship-monk">0</span>
+            <img class="item-img" src=" ./demon.png" alt="demon"><span id="js-ship-demon">0</span>
+         </div>
+      </div>
+      <div class="status-bar__side" id="status-bar__right">
+         <div class="status-bar__wraper">
+            <img class="item-img" src="./monk.png" alt="monk"><span id="js-bbank-monk">0</span>
+            <img class="item-img" src="./demon.png" alt="demon"><span id="js-bbank-demon">0</span>
+         </div>
+      </div>
    </div>
 
    <div class="gamebar__bank" id="gamebar__abank">
@@ -55,7 +77,7 @@
       <div id="gamebar__river--ship" bank="a">
          <div id="gamebar__river--ship--items"></div>
          <img id="gamebar__river--ship--body" src="./boat.png" alt="ship">
-      </div>
+      </div>''
    </div>
 
    <div class="gamebar__bank" id="gamebar__bbank">

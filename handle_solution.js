@@ -10,6 +10,15 @@ let maxMonk = 3;
 let maxDemon = 3;
 let maxCapacity = 2;
 
+function setStatusBar() {
+    document.querySelector('#js-abank-monk').innerHTML = `${aBank.children('.monk').length}`;
+    document.querySelector('#js-abank-demon').innerHTML = `${aBank.children('.demon').length}`;
+    document.querySelector('#js-ship-monk').innerHTML = `${shipDeck.children('.monk').length}`;
+    document.querySelector('#js-ship-demon').innerHTML = `${shipDeck.children('.demon').length}`;
+    document.querySelector('#js-bbank-monk').innerHTML = `${bBank.children('.monk').length}`;
+    document.querySelector('#js-bbank-demon').innerHTML = `${bBank.children('.demon').length}`;
+}
+
 function putItemBankToShip(itemType) {
     let solveBank;
     switch (ship.attr('bank')) {
@@ -108,6 +117,7 @@ function renderInput(nbMonk = 0, nbDemon = 0) {
             aBank.append('<img class="gamebar__bank--item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
         }
         setActionAllItem();
+        setStatusBar();
         return true;
     } else {
         return false;
@@ -179,6 +189,8 @@ $('document').ready(function () {
 
     setActionAllItem();
 
+    setStatusBar();
+
     restart
         .click(createNewGame);
 
@@ -205,7 +217,7 @@ $('document').ready(function () {
             if (nbShipDeckItems > 0) {
                 switch (ship.attr('bank')) {
                     case 'a':
-                        let x = await moveShip();
+                        await moveShip();
                         ship.attr({ 'bank': 'b' });
                         shipDeck.children().attr({ 'bank': 'b' });
                         break;
@@ -215,6 +227,8 @@ $('document').ready(function () {
                         shipDeck.children().attr({ 'bank': 'a' });
                         break;
                 }
+
+                setStatusBar();
 
                 if (!stateIsValid()) {
                     alert('You lose!');
@@ -298,6 +312,8 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
             } else {
                 alert("can't get this action");
             }
+
+            setStatusBar();
         }
     }
 }
