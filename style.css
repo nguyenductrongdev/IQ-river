@@ -121,8 +121,7 @@ body {
     width: 50vw;
     margin: 0 auto;
     font-size: 1rem;
-    opacity: 0.7;
-    /* background-color: black; */
+    background-color: rgba(208, 196, 196, 0.5);
 }
 
 .item-img {

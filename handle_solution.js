@@ -90,11 +90,10 @@ async function renderStep(operator) {
     let { monk, demon } = operator;
     // case item to move greater than max ship capacity
     if (monk + demon > maxCapacity) return false;
-    // console.log(monk, demon);
-    while (shipDeck.children('.monk').length > monk) { await Tool.delay(300); putItemShipToBank('monk') };
-    while (shipDeck.children('.demon').length > demon) { await Tool.delay(300); putItemShipToBank('demon') };
-    while (shipDeck.children('.monk').length < monk) { await Tool.delay(300); putItemBankToShip('monk') };
-    while (shipDeck.children('.demon').length < demon) { await Tool.delay(300); putItemBankToShip('demon'); }
+    while (shipDeck.children('.monk').length > monk) { await Tool.delay(100); putItemShipToBank('monk') };
+    while (shipDeck.children('.demon').length > demon) { await Tool.delay(100); putItemShipToBank('demon') };
+    while (shipDeck.children('.monk').length < monk) { await Tool.delay(100); putItemBankToShip('monk') };
+    while (shipDeck.children('.demon').length < demon) { await Tool.delay(100); putItemBankToShip('demon'); }
     await moveShip();
 }
 
@@ -247,8 +246,9 @@ $('document').ready(function () {
 
     $('#controller__help')
         .click(async function () {
-            let monk = aBank.children('.monk').length;
-            let demon = aBank.children('.demon').length;
+            // createNewGame();
+            let monk = aBank.children('.monk').length + shipDeck.children('.monk').length;
+            let demon = aBank.children('.demon').length + shipDeck.children('.demon').length;
             let posShip = ship.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
             State.setMax(maxMonk, maxDemon, maxCapacity);
             let stt = new State(monk, demon, posShip);
