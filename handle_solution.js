@@ -64,7 +64,7 @@ function moveShip() {
                 }, 500, 'linear', () => {
                     ship.attr({ 'bank': 'a' });
                     shipDeck.children().attr('bank', 'a');
-                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0.2s' });
+                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0s' });
                     res(true);
                 });
             });
@@ -76,7 +76,7 @@ function moveShip() {
                 }, 500, 'linear', () => {
                     ship.attr({ 'bank': 'b' });
                     shipDeck.children().attr('bank', 'b');
-                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(180deg)', 'transition': 'all 0.2s' });
+                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(180deg)', 'transition': 'all 0s' });
                     res(true);
                 });
             });
@@ -246,9 +246,8 @@ $('document').ready(function () {
 
     $('#controller__help')
         .click(async function () {
-            // createNewGame();
-            let monk = aBank.children('.monk').length + shipDeck.children('.monk').length;
-            let demon = aBank.children('.demon').length + shipDeck.children('.demon').length;
+            let monk = aBank.children('.monk').length + (shipDeck.attr('pos') === 'a' ? shipDeck.children('.monk').length : 0);
+            let demon = aBank.children('.demon').length + (shipDeck.attr('pos') === 'a' ? shipDeck.children('.demon').length : 0);
             let posShip = ship.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
             State.setMax(maxMonk, maxDemon, maxCapacity);
             let stt = new State(monk, demon, posShip);
