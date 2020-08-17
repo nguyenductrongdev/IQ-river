@@ -179,3 +179,12 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#abank-icon-monk,
+#abank-icon-demon,
+#ship-icon-monk,
+#ship-icon-demon,
+#bbank-icon-monk,
+#bbank-icon-demon {
+    cursor: pointer;
+}

@@ -12,13 +12,81 @@ let maxDemon = 3;
 let maxCapacity = 2;
 
 function setStatusBar() {
-    document.querySelector('#js-abank-monk').innerHTML = `${aBank.children('.monk').length}`;
-    document.querySelector('#js-abank-demon').innerHTML = `${aBank.children('.demon').length}`;
-    document.querySelector('#js-ship-monk').innerHTML = `${shipDeck.children('.monk').length}`;
-    document.querySelector('#js-ship-demon').innerHTML = `${shipDeck.children('.demon').length}`;
-    document.querySelector('#js-bbank-monk').innerHTML = `${bBank.children('.monk').length}`;
-    document.querySelector('#js-bbank-demon').innerHTML = `${bBank.children('.demon').length}`;
+    document.querySelector('#js-abank-nb-monk').innerHTML = `${aBank.children('.monk').length}`;
+    document.querySelector('#js-abank-nb-demon').innerHTML = `${aBank.children('.demon').length}`;
+    document.querySelector('#js-ship-nb-monk').innerHTML = `${shipDeck.children('.monk').length}`;
+    document.querySelector('#js-ship-nb-demon').innerHTML = `${shipDeck.children('.demon').length}`;
+    document.querySelector('#js-bbank-nb-monk').innerHTML = `${bBank.children('.monk').length}`;
+    document.querySelector('#js-bbank-nb-demon').innerHTML = `${bBank.children('.demon').length}`;
 }
+
+$('#abank-icon-monk').click(function () {
+    if (ship.attr('bank') !== 'a') {
+        MESSAGE_BAR.html('Cannot get this action because the ship not at a bank');
+        return;
+    }
+    if (aBank.children('.monk').length === 0) {
+        MESSAGE_BAR.html('Number of monk at a bank is empty');
+        return;
+    }
+    aBank.children('.monk').first().click();
+});
+
+$('#abank-icon-demon').click(function () {
+    if (ship.attr('bank') !== 'a') {
+        MESSAGE_BAR.html('Cannot get this action because the ship not at a bank');
+        return;
+    }
+    if (aBank.children('.demon').length === 0) {
+        MESSAGE_BAR.html('Number of demon at a bank is empty');
+        return;
+    }
+    aBank.children('.demon').first().click();
+});
+
+$('#ship-icon-monk').click(function () {
+    if (shipDeck.children('.monk').length === 0) {
+        MESSAGE_BAR.html('Number of monk at the ship is empty');
+        return;
+    }
+    putItemShipToBank('monk');
+});
+
+$('#ship-icon-demon').click(function () {
+    if (shipDeck.children('.demon').length === 0) {
+        MESSAGE_BAR.html('Number of demon at the ship is empty');
+        return;
+    }
+    putItemShipToBank('demon');
+});
+
+$('#bbank-icon-monk').click(function () {
+    if (ship.attr('bank') !== 'b') {
+        MESSAGE_BAR.html('Cannot get this action because the ship not at b bank');
+        return;
+    }
+    if (bBank.children('.monk').length === 0) {
+        MESSAGE_BAR.html('Number of monk at b bank is empty');
+        return;
+    }
+    bBank.children('.monk').first().click();
+});
+
+$('#bbank-icon-demon').click(function () {
+    if (ship.attr('bank') !== 'b') {
+        MESSAGE_BAR.html('Cannot get this action because the ship not at b bank');
+        return;
+    }
+    if (bBank.children('.demon').length === 0) {
+        MESSAGE_BAR.html('Number of demon at b bank is empty');
+        return;
+    }
+    bBank.children('.demon').first().click();
+});
+
+ship.children('#gamebar__river--ship--body').click(function () {
+    moveShip();
+});
 
 function putItemBankToShip(itemType) {
     let solveBank;
@@ -54,7 +122,10 @@ function putItemShipToBank(itemType) {
 
 function moveShip() {
     // case ship haven't any item, so can't move ship
-    if (shipDeck.children().length === 0) return false;
+    if (shipDeck.children().length === 0) {
+        MESSAGE_BAR.html('Cannot move the ship because it is empty');
+        return false
+    };
     let desBank = (ship.attr('bank') === 'a') ? 'b' : 'a';
     switch (desBank) {
         case 'a':
@@ -281,7 +352,8 @@ function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
                             }
 
                         } else if (itemPos === 'ship') {
-                            shipDeck.remove(Jthis);
+                            // shipDeck.remove(Jthis);
+                            Jthis.remove();
                             if (ship.attr('bank') === 'a') {
                                 aBank.append(Jthis.attr({ 'pos': 'bank' }));
                             } else {
