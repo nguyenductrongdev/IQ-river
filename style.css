@@ -19,7 +19,8 @@ body {
     justify-content: space-around;
     border-radius: 1.5rem;
     padding: 2em 0;
-    opacity: 0.7;
+    /* opacity: 0.7; */
+    background-color: rgba(255, 255, 255, 0.3);
     flex-wrap: wrap;
 }
 
@@ -94,7 +95,8 @@ body {
     z-index: 1;
 }
 
-.gamebar__bank--item:hover {
+.gamebar__bank--item:hover,
+.gamebar__bank--item:active {
     box-shadow: 
         0.2rem 0.2rem 0.2rem 0.1rem orangered,
         0.2rem -0.2rem 0.2rem 0.1rem orangered,
@@ -120,7 +122,6 @@ body {
 #initor {
     width: 50vw;
     margin: 0 auto;
-    font-size: 1rem;
     background-color: rgba(208, 196, 196, 0.5);
 }
 
@@ -141,7 +142,6 @@ body {
     align-items: center; 
     justify-content: center;
     height: 10vh; 
-    /* background-color: lightblue; */
 }
 
 #status-bar__left, 
