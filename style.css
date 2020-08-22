@@ -19,7 +19,6 @@ body {
     justify-content: space-around;
     border-radius: 1.5rem;
     padding: 2em 0;
-    /* opacity: 0.7; */
     background-color: rgba(255, 255, 255, 0.3);
     flex-wrap: wrap;
 }
@@ -39,7 +38,6 @@ body {
     position: relative;
     width: 50%;
     background-image: url('./river.jpg');
-    /* background-color: blue; */
 }
 
 
@@ -47,7 +45,6 @@ body {
     position: relative;
     height: 10rem;
     width: 20vw;
-    /* background-color: red; */
 }
 
 #gamebar__river--ship--items {
@@ -59,7 +56,6 @@ body {
     justify-content: space-around;
     height: 4rem;
     overflow: auto;
-    /* background-color: #333333; */
 }
 
 #gamebar__river--ship--body {
@@ -68,7 +64,6 @@ body {
     bottom: 0;
     height: 6rem;
     overflow: auto;
-    /* background-color: red; */
 }
 
 .gamebar__bank {
@@ -81,7 +76,6 @@ body {
     background-repeat: no-repeat;
     flex-wrap: wrap;
     overflow: auto;
-    /* background-color: grey; */
 }
 
 .gamebar__bank--item {
@@ -95,13 +89,10 @@ body {
     z-index: 1;
 }
 
-.gamebar__bank--item:hover,
-.gamebar__bank--item:active {
+.gamebar__bank--item:hover {
     box-shadow: 
-        0.2rem 0.2rem 0.2rem 0.1rem orangered,
-        0.2rem -0.2rem 0.2rem 0.1rem orangered,
-        -0.2rem 0.2rem 0.2rem 0.1rem orangered,
-        -0.2rem -0.2rem 0.2rem 0.1rem orangered;
+        0.1rem 0.1rem 0.1rem orangered,
+        -0.1rem -0.1rem 0.1rem orangered;
 }
 
 .demon {
@@ -109,7 +100,6 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    /* background-color: red; */
 }
 
 .monk {
