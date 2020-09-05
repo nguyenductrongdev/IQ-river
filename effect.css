@@ -6,9 +6,6 @@
 
 .wave-in-btn:hover {
     cursor: pointer;
-    box-shadow: 
-        3px 3px 3px grey,
-        3px 3px 10px grey;
 }
 
 .wave-in-btn:active {

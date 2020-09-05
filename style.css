@@ -69,8 +69,8 @@ body {
 .gamebar__bank {
     width: 25%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    justify-content: space-around;
     background-image: url('./riverbank.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -91,8 +91,10 @@ body {
 
 .gamebar__bank--item:hover {
     box-shadow: 
-        0.1rem 0.1rem 0.1rem orangered,
-        -0.1rem -0.1rem 0.1rem orangered;
+        0rem 0.1rem  black,
+        0.1rem 0rem  black,
+        0rem -0.1rem black,
+        -0.1rem 0rem black;
 }
 
 .demon {

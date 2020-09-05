@@ -32,7 +32,7 @@ class State {
             case 2:
                 this.nbMonk = arguments[0];
                 this.nbDemon = arguments[1];
-                this.posShip = 2;
+                this.posShip = State.A_BANK;
                 break;
             case 3:
                 this.nbMonk = arguments[0];

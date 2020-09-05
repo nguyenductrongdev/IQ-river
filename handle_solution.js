@@ -1,51 +1,51 @@
-const controller = $('#controller__move');
-const restart = $('#controller__restart');
-const shipDeck = $('#gamebar__river--ship--items');
-const ship = $('#gamebar__river--ship');
-const gamebarBankItems = $('.gamebar__bank--item');
-const aBank = $('#gamebar__abank');
-const bBank = $('#gamebar__bbank');
-const appendInputor = $('#appendInputor');
+const CONTROLLER_MOVE = $('#controller__move');
+const RESTART = $('#controller__restart');
+const SHIP_DECK = $('#gamebar__river--ship--items');
+const SHIP = $('#gamebar__river--ship');
+const A_BANK = $('#gamebar__abank');
+const B_BANK = $('#gamebar__bbank');
+const INPUT_SETTER = $('#input-setter');
 const MESSAGE_BAR = $('#message-bar');
 let maxMonk = 3;
 let maxDemon = 3;
 let maxCapacity = 2;
+let onAISolving = false;
 
 function setStatusBar() {
-    document.querySelector('#js-abank-nb-monk').innerHTML = `${aBank.children('.monk').length}`;
-    document.querySelector('#js-abank-nb-demon').innerHTML = `${aBank.children('.demon').length}`;
-    document.querySelector('#js-ship-nb-monk').innerHTML = `${shipDeck.children('.monk').length}`;
-    document.querySelector('#js-ship-nb-demon').innerHTML = `${shipDeck.children('.demon').length}`;
-    document.querySelector('#js-bbank-nb-monk').innerHTML = `${bBank.children('.monk').length}`;
-    document.querySelector('#js-bbank-nb-demon').innerHTML = `${bBank.children('.demon').length}`;
+    document.querySelector('#js-abank-nb-monk').innerHTML = `${A_BANK.children('.monk').length}`;
+    document.querySelector('#js-abank-nb-demon').innerHTML = `${A_BANK.children('.demon').length}`;
+    document.querySelector('#js-ship-nb-monk').innerHTML = `${SHIP_DECK.children('.monk').length}`;
+    document.querySelector('#js-ship-nb-demon').innerHTML = `${SHIP_DECK.children('.demon').length}`;
+    document.querySelector('#js-bbank-nb-monk').innerHTML = `${B_BANK.children('.monk').length}`;
+    document.querySelector('#js-bbank-nb-demon').innerHTML = `${B_BANK.children('.demon').length}`;
 }
 
 $('#abank-icon-monk').click(function () {
-    if (ship.attr('bank') !== 'a') {
+    if (SHIP.attr('bank') !== 'a') {
         MESSAGE_BAR.html('Cannot get this action because the ship not at a bank');
         return;
     }
-    if (aBank.children('.monk').length === 0) {
+    if (A_BANK.children('.monk').length === 0) {
         MESSAGE_BAR.html('Number of monk at a bank is empty');
         return;
     }
-    aBank.children('.monk').first().click();
+    A_BANK.children('.monk').first().click();
 });
 
 $('#abank-icon-demon').click(function () {
-    if (ship.attr('bank') !== 'a') {
+    if (SHIP.attr('bank') !== 'a') {
         MESSAGE_BAR.html('Cannot get this action because the ship not at a bank');
         return;
     }
-    if (aBank.children('.demon').length === 0) {
+    if (A_BANK.children('.demon').length === 0) {
         MESSAGE_BAR.html('Number of demon at a bank is empty');
         return;
     }
-    aBank.children('.demon').first().click();
+    A_BANK.children('.demon').first().click();
 });
 
 $('#ship-icon-monk').click(function () {
-    if (shipDeck.children('.monk').length === 0) {
+    if (SHIP_DECK.children('.monk').length === 0) {
         MESSAGE_BAR.html('Number of monk at the ship is empty');
         return;
     }
@@ -53,56 +53,55 @@ $('#ship-icon-monk').click(function () {
 });
 
 $('#ship-icon-demon').click(function () {
-    if (shipDeck.children('.demon').length === 0) {
+    if (SHIP_DECK.children('.demon').length === 0) {
         MESSAGE_BAR.html('Number of demon at the ship is empty');
-        return;
     }
     putItemShipToBank('demon');
 });
 
 $('#bbank-icon-monk').click(function () {
-    if (ship.attr('bank') !== 'b') {
+    if (SHIP.attr('bank') !== 'b') {
         MESSAGE_BAR.html('Cannot get this action because the ship not at b bank');
         return;
     }
-    if (bBank.children('.monk').length === 0) {
+    if (B_BANK.children('.monk').length === 0) {
         MESSAGE_BAR.html('Number of monk at b bank is empty');
         return;
     }
-    bBank.children('.monk').first().click();
+    B_BANK.children('.monk').first().click();
 });
 
 $('#bbank-icon-demon').click(function () {
-    if (ship.attr('bank') !== 'b') {
+    if (SHIP.attr('bank') !== 'b') {
         MESSAGE_BAR.html('Cannot get this action because the ship not at b bank');
         return;
     }
-    if (bBank.children('.demon').length === 0) {
+    if (B_BANK.children('.demon').length === 0) {
         MESSAGE_BAR.html('Number of demon at b bank is empty');
         return;
     }
-    bBank.children('.demon').first().click();
+    B_BANK.children('.demon').first().click();
 });
 
-ship.children('#gamebar__river--ship--body').click(function () {
+SHIP.children('#gamebar__river--ship--body').click(function () {
     moveShip();
 });
 
 function putItemBankToShip(itemType) {
     let solveBank;
-    switch (ship.attr('bank')) {
+    switch (SHIP.attr('bank')) {
         case 'a':
-            solveBank = aBank;
+            solveBank = A_BANK;
             break;
         case 'b':
-            solveBank = bBank;
+            solveBank = B_BANK;
             break;
         default:
             return false;
     }
     if (typeof itemType !== 'string') return false;
     // case the ship fully, can't put more any item
-    if (shipDeck.children().length === maxCapacity) return false;
+    if (SHIP_DECK.children().length === maxCapacity) return false;
     // case number of type not enough
     if (solveBank.children(`.${itemType}`).length === 0) return false;
     let firstItem = solveBank.children(`.${itemType}`).first();
@@ -113,41 +112,41 @@ function putItemBankToShip(itemType) {
 function putItemShipToBank(itemType) {
     // put an item from ship to a bank
     if (typeof itemType !== 'string') return false;
-    if (shipDeck.children(`.${itemType}`).length === 0) return false;
+    if (SHIP_DECK.children(`.${itemType}`).length === 0) return false;
 
-    let fristItem = shipDeck.children(`.${itemType}`).first();
+    let fristItem = SHIP_DECK.children(`.${itemType}`).first();
     fristItem.click();
     return true;
 }
 
 function moveShip() {
     // case ship haven't any item, so can't move ship
-    if (shipDeck.children().length === 0) {
+    if (SHIP_DECK.children().length === 0) {
         MESSAGE_BAR.html('Cannot move the ship because it is empty');
         return false
     };
-    let desBank = (ship.attr('bank') === 'a') ? 'b' : 'a';
+    let desBank = (SHIP.attr('bank') === 'a') ? 'b' : 'a';
     switch (desBank) {
         case 'a':
             return new Promise((res, rej) => {
-                ship.animate({
+                SHIP.animate({
                     left: '0'
                 }, 500, 'linear', () => {
-                    ship.attr({ 'bank': 'a' });
-                    shipDeck.children().attr('bank', 'a');
-                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0s' });
+                    SHIP.attr({ 'bank': 'a' });
+                    SHIP_DECK.children().attr('bank', 'a');
+                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'transform .1s' });
                     res(true);
                 });
             });
 
         case 'b':
             return new Promise((res, rej) => {
-                ship.animate({
-                    left: `${ship.parent().width() - ship.width()}px`
+                SHIP.animate({
+                    left: `${SHIP.parent().width() - SHIP.width()}px`
                 }, 500, 'linear', () => {
-                    ship.attr({ 'bank': 'b' });
-                    shipDeck.children().attr('bank', 'b');
-                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(180deg)', 'transition': 'all 0s' });
+                    SHIP.attr({ 'bank': 'b' });
+                    SHIP_DECK.children().attr('bank', 'b');
+                    $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(180deg)', 'transition': 'transform .1s' });
                     res(true);
                 });
             });
@@ -161,11 +160,12 @@ async function renderStep(operator) {
     let { monk, demon } = operator;
     // case item to move greater than max ship capacity
     if (monk + demon > maxCapacity) return false;
-    while (shipDeck.children('.monk').length > monk) { await Tool.delay(100); putItemShipToBank('monk') };
-    while (shipDeck.children('.demon').length > demon) { await Tool.delay(100); putItemShipToBank('demon') };
-    while (shipDeck.children('.monk').length < monk) { await Tool.delay(100); putItemBankToShip('monk') };
-    while (shipDeck.children('.demon').length < demon) { await Tool.delay(100); putItemBankToShip('demon'); }
+    while (SHIP_DECK.children('.monk').length > monk) { await Tool.delay(100); putItemShipToBank('monk') };
+    while (SHIP_DECK.children('.demon').length > demon) { await Tool.delay(100); putItemShipToBank('demon') };
+    while (SHIP_DECK.children('.monk').length < monk) { await Tool.delay(100); putItemBankToShip('monk') };
+    while (SHIP_DECK.children('.demon').length < demon) { await Tool.delay(100); putItemBankToShip('demon'); }
     await moveShip();
+    return true;
 }
 
 function createNewGame() {
@@ -174,20 +174,21 @@ function createNewGame() {
 
 function renderInput(nbMonk = 0, nbDemon = 0) {
     if (nbMonk >= nbDemon) {
-        aBank.empty();
-        bBank.empty();
-        shipDeck.empty();
-        ship.animate({ left: '0' }, 'fast', 'linear', () => {
-            ship.attr('bank', 'a');
-            $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0.2s' });
+        A_BANK.empty();
+        B_BANK.empty();
+        SHIP_DECK.empty();
+        SHIP.animate({ left: '0' }, 'fast', 'linear', () => {
+            SHIP.attr('bank', 'a');
+            $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all .2s' });
         });
+
+        $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0s' });
         for (let i = 1; i <= nbMonk; ++i) {
-            aBank.append('<img class="gamebar__bank--item monk" bank="a" pos="bank" src="./monk.png" alt="monk">');
+            A_BANK.append('<img class="gamebar__bank--item monk" bank="a" pos="bank" src="./monk.png" alt="monk">');
         }
         for (let i = 1; i <= nbDemon; ++i) {
-            aBank.append('<img class="gamebar__bank--item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
+            A_BANK.append('<img class="gamebar__bank--item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
         }
-        setActionAllItem();
         setStatusBar();
         MESSAGE_BAR.html('Let game!! Good luck!!!');
         return true;
@@ -197,20 +198,20 @@ function renderInput(nbMonk = 0, nbDemon = 0) {
 }
 
 function stateIsValid() {
-    let shipPos = ship.attr('bank');
+    let shipPos = SHIP.attr('bank');
     let nbDeckMonk = 0, nbDeckDemon = 0;
     let aIsValid = true;
     let bIsValid = true;
 
-    if (shipDeck.children().length > 0) {
-        nbDeckMonk = Array.from(shipDeck.children('.monk')).length;
-        nbDeckDemon = Array.from(shipDeck.children('.demon')).length;
+    if (SHIP_DECK.children().length > 0) {
+        nbDeckMonk = Array.from(SHIP_DECK.children('.monk')).length;
+        nbDeckDemon = Array.from(SHIP_DECK.children('.demon')).length;
     }
 
-    let nbAMonk = Array.from(aBank.children('.monk')).length;
-    let nbADemon = Array.from(aBank.children('.demon')).length;
-    let nbBMonk = Array.from(bBank.children('.monk')).length;
-    let nbBDemon = Array.from(bBank.children('.demon')).length;
+    let nbAMonk = Array.from(A_BANK.children('.monk')).length;
+    let nbADemon = Array.from(A_BANK.children('.demon')).length;
+    let nbBMonk = Array.from(B_BANK.children('.monk')).length;
+    let nbBDemon = Array.from(B_BANK.children('.demon')).length;
     if (shipPos === 'a') {
         let totalAMonk = nbAMonk + nbDeckMonk;
         let totalADemon = nbADemon + nbDeckDemon;
@@ -237,17 +238,17 @@ function stateIsValid() {
 }
 
 function isGoal() {
-    if (ship.attr('bank') === 'b') {
-        let shipPos = ship.attr('bank');
+    if (SHIP.attr('bank') === 'b') {
+        let shipPos = SHIP.attr('bank');
         let nbDeckMonk = 0;
         let nbDeckDemon = 0;
 
-        let nbBMonk = bBank.children('.monk').length;
-        let nbBDemon = bBank.children('.demon').length;
+        let nbBMonk = B_BANK.children('.monk').length;
+        let nbBDemon = B_BANK.children('.demon').length;
 
-        if (shipDeck.children().length > 0) {
-            nbDeckMonk = shipDeck.children('.monk').length;
-            nbDeckDemon = shipDeck.children('.demon').length;
+        if (SHIP_DECK.children().length > 0) {
+            nbDeckMonk = SHIP_DECK.children('.monk').length;
+            nbDeckDemon = SHIP_DECK.children('.demon').length;
         }
         return (nbBMonk + nbDeckMonk === maxMonk) &&
             (nbBDemon + nbDeckDemon === maxDemon) &&
@@ -257,7 +258,7 @@ function isGoal() {
     }
 }
 
-$('document').ready(function () {
+$(document).ready(function () {
 
     setActionAllItem();
 
@@ -265,10 +266,13 @@ $('document').ready(function () {
 
     MESSAGE_BAR.html('Let game!! Good luck!!!');
 
-    restart
-        .click(createNewGame);
+    RESTART
+        .click(function () {
+            onAISolving = false;
+            createNewGame();
+        });
 
-    appendInputor
+    INPUT_SETTER
         .click(function () {
             let nbMonk = parseInt($('#initor__valueMonk').val());
             let nbDemon = parseInt($('#initor__valueDemon').val());
@@ -287,20 +291,20 @@ $('document').ready(function () {
                 MESSAGE_BAR.html('Let game!! Good luck!!!');
         });
 
-    controller
+    CONTROLLER_MOVE
         .click(async function () {
-            let nbShipDeckItems = shipDeck.children().length;
+            let nbShipDeckItems = SHIP_DECK.children().length;
             if (nbShipDeckItems > 0) {
-                switch (ship.attr('bank')) {
+                switch (SHIP.attr('bank')) {
                     case 'a':
                         await moveShip();
-                        ship.attr({ 'bank': 'b' });
-                        shipDeck.children().attr({ 'bank': 'b' });
+                        SHIP.attr({ 'bank': 'b' });
+                        SHIP_DECK.children().attr({ 'bank': 'b' });
                         break;
                     case 'b':
                         await moveShip();
-                        ship.attr({ 'bank': 'a' });
-                        shipDeck.children().attr({ 'bank': 'a' });
+                        SHIP.attr({ 'bank': 'a' });
+                        SHIP_DECK.children().attr({ 'bank': 'a' });
                         break;
                 }
 
@@ -317,74 +321,82 @@ $('document').ready(function () {
 
     $('#controller__help')
         .click(async function () {
-            let monk = aBank.children('.monk').length + (shipDeck.attr('pos') === 'a' ? shipDeck.children('.monk').length : 0);
-            let demon = aBank.children('.demon').length + (shipDeck.attr('pos') === 'a' ? shipDeck.children('.demon').length : 0);
-            let posShip = ship.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
+            onAISolving = true;
+            let monk = A_BANK.children('.monk').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.monk').length : 0);
+            let demon = A_BANK.children('.demon').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.demon').length : 0);
+            let posShip = SHIP.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
             State.setMax(maxMonk, maxDemon, maxCapacity);
             let stt = new State(monk, demon, posShip);
             let operators = AISolving.getSolution(stt);
             if (operators.length === 0) {
                 MESSAGE_BAR.html('This input is no solutions');
-                return;
+                return true;
             }
             for (let i = 0; i < operators.length; ++i) {
                 await renderStep(operators[i]);
+                if (onAISolving === false) {
+                    console.log('break solving!!');
+                    break;
+                }
             }
             if (isGoal()) MESSAGE_BAR.html('complete game!!!');
+            return true;
         });
 });
 
-function setActionAllItem(items = Array.from($('.gamebar__bank--item'))) {
-    for (let item of items) {
-        item.onclick = function () {
-            let Jthis = $(this);
-            if (ship.attr('bank') === Jthis.attr('bank')) {
-                let itemPos = Jthis.attr('pos');
-                switch (Jthis.attr('bank')) {
-                    case 'a':
-                        if (itemPos === 'bank') {
-                            if (shipDeck.children().length < maxCapacity) {
-                                // aBank.remove(Jthis);
-                                Jthis.remove();
-                                shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
-                            } else {
-                                MESSAGE_BAR.html('The ship fully, cannot put more anyone');
-                            }
+// function setActionAllItem() {
+//     let items = Array.from($('.gamebar__bank--item'));
+//     for (let item of items) {
+//         item.onclick = function () {
+//             // console.log('click');
+//             let Jthis = $(this);
+//             let itemPos = Jthis.attr('pos');
+//             switch (itemPos) {
+//                 case 'bank':
+//                     if (SHIP.attr('bank') !== Jthis.attr('bank') || SHIP_DECK.children().length === maxCapacity) {
+//                         MESSAGE_BAR.html('Cannot get this action');
+//                         break;
+//                     }
+//                     // Jthis.remove();
+//                     Jthis.attr('pos', 'ship');
+//                     SHIP_DECK.append(Jthis);
+//                     break;
+//                 case 'ship':
+//                     // Jthis.remove();
+//                     Jthis.attr('pos', 'bank');
+//                     SHIP.attr('bank') === 'a' ? A_BANK.append(Jthis) : B_BANK.append(Jthis);
+//                     break;
+//                 default:
+//                     break;
+//             }
+//             setStatusBar();
+//         }
+//     }
+// }
 
-                        } else if (itemPos === 'ship') {
-                            // shipDeck.remove(Jthis);
-                            Jthis.remove();
-                            if (ship.attr('bank') === 'a') {
-                                aBank.append(Jthis.attr({ 'pos': 'bank' }));
-                            } else {
-                                bBank.append(Jthis.attr({ 'pos': 'bank' }));
-                            }
-                        }
-                        break;
-                    case 'b':
-                        if (itemPos === 'bank') {
-                            if (shipDeck.children().length < maxCapacity) {
-                                // bBank.remove(Jthis);
-                                Jthis.remove();
-                                shipDeck.append(Jthis.attr({ 'pos': 'ship' }));
-                            } else {
-                                MESSAGE_BAR.html('The ship fully, cannot put more anyone');
-                            }
-                        } else if (itemPos === 'ship') {
-                            shipDeck.remove(Jthis);
-                            if (ship.attr('bank') === 'a') {
-                                aBank.append(Jthis.attr({ 'pos': 'bank' }));
-                            } else {
-                                bBank.append(Jthis.attr({ 'pos': 'bank' }));
-                            }
-                        }
-                        break;
+function setActionAllItem() {
+    $(document).on('click', '.gamebar__bank--item', function () {
+        let Jthis = $(this);
+        let itemPos = Jthis.attr('pos');
+        switch (itemPos) {
+            case 'bank':
+                if (SHIP.attr('bank') !== Jthis.attr('bank')) {
+                    MESSAGE_BAR.html('Cannot get this action');
+                    break;
                 }
-            } else {
-                alert("can't get this action");
-            }
-
-            setStatusBar();
+                if (SHIP_DECK.children().length === maxCapacity) {
+                    MESSAGE_BAR.html('The ship is fully, cannot put more any item');
+                    break;
+                }
+                SHIP_DECK.append(Jthis.attr({ 'pos': 'ship' }));
+                break;
+            case 'ship':
+                Jthis.attr('pos', 'bank');
+                SHIP.attr('bank') === 'a' ? A_BANK.append(Jthis) : B_BANK.append(Jthis);
+                break;
+            default:
+                break;
         }
-    }
+        setStatusBar();
+    });
 }

@@ -21,7 +21,7 @@
             <td><input id="initor__valueMonk" type="number" min="0"></td>
             <td><img class="item-img" src="./monk.png" alt="monk image"></td>
             <td rowspan="3">
-               <span class="btn btn-success wave-in-btn" id="appendInputor">Let go!</span>
+               <span class="btn btn-success wave-in-btn" id="input-setter">Let go!</span>
             </td>
          </tr>
          <tr>
@@ -37,7 +37,7 @@
       </table>
    </div>
 
-   <div class="bg-light" id="controller">
+   <div id="controller">
       <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
       <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
       <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
@@ -86,11 +86,10 @@
       <div id="gamebar__river--ship" bank="a">
          <div id="gamebar__river--ship--items"></div>
          <img id="gamebar__river--ship--body" src="./boat.png" alt="ship">
-      </div>''
+      </div>
    </div>
 
-   <div class="gamebar__bank" id="gamebar__bbank">
-   </div>
+   <div class="gamebar__bank" id="gamebar__bbank"></div>
 
    <script src="./automatic_solution.js"></script>
    <script src="./handle_solution.js"></script>
