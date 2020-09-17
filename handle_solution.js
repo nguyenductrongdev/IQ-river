@@ -1,5 +1,6 @@
 const CONTROLLER_MOVE = $('#controller__move');
-const RESTART = $('#controller__restart');
+const CONTROLLER_HELP = $('#controller__help');
+const CONTROLLER_RESTART = $('#controller__restart');
 const SHIP_DECK = $('#gamebar__river--ship--items');
 const SHIP = $('#gamebar__river--ship');
 const A_BANK = $('#gamebar__abank');
@@ -266,7 +267,7 @@ $(document).ready(function () {
 
     MESSAGE_BAR.html('Let game!! Good luck!!!');
 
-    RESTART
+    CONTROLLER_RESTART
         .click(function () {
             onAISolving = false;
             createNewGame();
@@ -289,6 +290,9 @@ $(document).ready(function () {
                 MESSAGE_BAR.html('Number of Monk must greater than number of demon');
             else
                 MESSAGE_BAR.html('Let game!! Good luck!!!');
+            $('#js-nb-total-monk').html(nbMonk);
+            $('#js-nb-total-demon').html(nbDemon);
+            $('#js-nb-capacity-ship').html(capacity);
         });
 
     CONTROLLER_MOVE
@@ -319,7 +323,7 @@ $(document).ready(function () {
             }
         });
 
-    $('#controller__help')
+    CONTROLLER_HELP
         .click(async function () {
             onAISolving = true;
             let monk = A_BANK.children('.monk').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.monk').length : 0);
@@ -333,46 +337,17 @@ $(document).ready(function () {
                 return true;
             }
             for (let i = 0; i < operators.length; ++i) {
-                await renderStep(operators[i]);
                 if (onAISolving === false) {
                     console.log('break solving!!');
                     break;
                 }
+                await renderStep(operators[i]);
+                console.log('solved one step');
             }
             if (isGoal()) MESSAGE_BAR.html('complete game!!!');
             return true;
         });
 });
-
-// function setActionAllItem() {
-//     let items = Array.from($('.gamebar__bank--item'));
-//     for (let item of items) {
-//         item.onclick = function () {
-//             // console.log('click');
-//             let Jthis = $(this);
-//             let itemPos = Jthis.attr('pos');
-//             switch (itemPos) {
-//                 case 'bank':
-//                     if (SHIP.attr('bank') !== Jthis.attr('bank') || SHIP_DECK.children().length === maxCapacity) {
-//                         MESSAGE_BAR.html('Cannot get this action');
-//                         break;
-//                     }
-//                     // Jthis.remove();
-//                     Jthis.attr('pos', 'ship');
-//                     SHIP_DECK.append(Jthis);
-//                     break;
-//                 case 'ship':
-//                     // Jthis.remove();
-//                     Jthis.attr('pos', 'bank');
-//                     SHIP.attr('bank') === 'a' ? A_BANK.append(Jthis) : B_BANK.append(Jthis);
-//                     break;
-//                 default:
-//                     break;
-//             }
-//             setStatusBar();
-//         }
-//     }
-// }
 
 function setActionAllItem() {
     $(document).on('click', '.gamebar__bank--item', function () {

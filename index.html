@@ -14,35 +14,50 @@
 </head>
 
 <body>
-   <div id="initor">
-      <table class="table table-borderless">
-         <tr>
-            <td>Enter number of monk:</td>
-            <td><input id="initor__valueMonk" type="number" min="0"></td>
-            <td><img class="item-img" src="./monk.png" alt="monk image"></td>
-            <td rowspan="3">
-               <span class="btn btn-success wave-in-btn" id="input-setter">Let go!</span>
-            </td>
-         </tr>
-         <tr>
-            <td>Enter number of demon:</td>
-            <td><input id="initor__valueDemon" type="number" min="0"></td>
-            <td><img class="item-img" src="./demon.png" alt="demon image"></td>
-         </tr>
-         <tr>
-            <td>Enter capacity of the ship:</td>
-            <td><input id="initor__valueCapacity" type="number" min="1"></td>
-            <td><img class="item-img" src="./boat.png" alt="ship image"></td>
-         </tr>
-      </table>
+   <div class="row">
+      <div class="col-sm-7">
+         <div id="initor">
+            <table class="table table-borderless">
+               <tr>
+                  <td>Enter number of monk:</td>
+                  <td><input id="initor__valueMonk" type="number" min="0"></td>
+                  <td><img class="item-img" src="./monk.png" alt="monk image"></td>
+                  <td rowspan="3">
+                     <span class="btn btn-success wave-in-btn" id="input-setter">Let go!</span>
+                  </td>
+               </tr>
+               <tr>
+                  <td>Enter number of demon:</td>
+                  <td><input id="initor__valueDemon" type="number" min="0"></td>
+                  <td><img class="item-img" src="./demon.png" alt="demon image"></td>
+               </tr>
+               <tr>
+                  <td>Enter capacity of the ship:</td>
+                  <td><input id="initor__valueCapacity" type="number" min="1"></td>
+                  <td><img class="item-img" src="./boat.png" alt="ship image"></td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div class="col-sm-5">
+         <div class="row">
+            <div id="info" class="col-sm-12">
+               Total monk: <span id="js-nb-total-monk">3</span> <img class="item-img" src="./monk.png" alt="monk"><br />
+               Total demon: <span id="js-nb-total-demon">3</span> <img class="item-img" src="./demon.png"
+                  alt="demon"><br />
+               Max of the ship capacity: <span id="js-nb-capacity-ship">2</span> <img class="item-img" src="./boat.png"
+                  alt="ship"><br />
+            </div>
+         </div>
+      </div>
    </div>
-
-   <div id="controller">
-      <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
-      <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
-      <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
+   <div class="row d-flex justify-content-center">
+      <div id="controller" class="col-sm-3">
+         <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
+         <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
+         <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
+      </div>
    </div>
-
    <div id="message-bar"></div>
 
    <div id="status-bar">
