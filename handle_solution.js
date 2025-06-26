@@ -1,18 +1,21 @@
 const CONTROLLER_MOVE = $('#controller__move');
 const CONTROLLER_HELP = $('#controller__help');
 const CONTROLLER_RESTART = $('#controller__restart');
+const CONTROLLER_VIEW = $('#controller__solution');
 const SHIP_DECK = $('#gamebar__river--ship--items');
 const SHIP = $('#gamebar__river--ship');
 const A_BANK = $('#gamebar__abank');
 const B_BANK = $('#gamebar__bbank');
 const INPUT_SETTER = $('#input-setter');
 const MESSAGE_BAR = $('#message-bar');
+const PREVIEW_MODEL = $("#solution-step-container");
 let maxMonk = 3;
 let maxDemon = 3;
 let maxCapacity = 2;
 let onAISolving = false;
+let isEnded = false;
 
-function setStatusBar() {
+function renderStatusBar() {
     document.querySelector('#js-abank-nb-monk').innerHTML = `${A_BANK.children('.monk').length}`;
     document.querySelector('#js-abank-nb-demon').innerHTML = `${A_BANK.children('.demon').length}`;
     document.querySelector('#js-ship-nb-monk').innerHTML = `${SHIP_DECK.children('.monk').length}`;
@@ -185,12 +188,12 @@ function renderInput(nbMonk = 0, nbDemon = 0) {
 
         $('#gamebar__river--ship--body').css({ 'transform': 'rotateY(0deg)', 'transition': 'all 0s' });
         for (let i = 1; i <= nbMonk; ++i) {
-            A_BANK.append('<img class="gamebar__bank--item monk" bank="a" pos="bank" src="./monk.png" alt="monk">');
+            A_BANK.append('<img class="gamebar__bank__item monk" bank="a" pos="bank" src="./monk.png" alt="monk">');
         }
         for (let i = 1; i <= nbDemon; ++i) {
-            A_BANK.append('<img class="gamebar__bank--item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
+            A_BANK.append('<img class="gamebar__bank__item demon" bank="a" pos="bank" src="./demon.png" alt="demon">');
         }
-        setStatusBar();
+        renderStatusBar();
         MESSAGE_BAR.html('Let game!! Good luck!!!');
         return true;
     } else {
@@ -261,9 +264,9 @@ function isGoal() {
 
 $(document).ready(function () {
 
-    setActionAllItem();
+    applyActionAllItems();
 
-    setStatusBar();
+    renderStatusBar();
 
     MESSAGE_BAR.html('Let game!! Good luck!!!');
 
@@ -271,6 +274,7 @@ $(document).ready(function () {
         .click(function () {
             onAISolving = false;
             createNewGame();
+            isEnded = false;
         });
 
     INPUT_SETTER
@@ -293,10 +297,13 @@ $(document).ready(function () {
             $('#js-nb-total-monk').html(nbMonk);
             $('#js-nb-total-demon').html(nbDemon);
             $('#js-nb-capacity-ship').html(capacity);
+            isEnded = false;
         });
 
     CONTROLLER_MOVE
         .click(async function () {
+            if(isEnded) return;
+
             let nbShipDeckItems = SHIP_DECK.children().length;
             if (nbShipDeckItems > 0) {
                 switch (SHIP.attr('bank')) {
@@ -312,9 +319,12 @@ $(document).ready(function () {
                         break;
                 }
 
-                setStatusBar();
+                renderStatusBar();
 
-                if (!stateIsValid()) MESSAGE_BAR.html('You lose!');
+                if (!stateIsValid()) {
+                    MESSAGE_BAR.html('You lose!');
+                    isEnded = true;
+                }
 
                 if (isGoal()) MESSAGE_BAR.html('Complete game!');
 
@@ -347,10 +357,43 @@ $(document).ready(function () {
             if (isGoal()) MESSAGE_BAR.html('complete game!!!');
             return true;
         });
+
+    CONTROLLER_VIEW
+        .click(async function () {
+            let monk = A_BANK.children('.monk').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.monk').length : 0);
+            let demon = A_BANK.children('.demon').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.demon').length : 0);
+            let posShip = SHIP.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
+            State.setMax(maxMonk, maxDemon, maxCapacity);
+            let stt = new State(monk, demon, posShip);
+            let aiSolution = AISolving.getSolution(stt);
+            if (aiSolution.length === 0) {
+                alert('This input is no solutions');
+                return true;
+            }
+            let solutionHtml = "";
+            let shipInFire = true;
+
+            for (let operator of aiSolution) {
+                let { monk, demon } = operator;
+                let monkImages = new Array(monk).fill(`<img class="p-1 solution-item" src='./monk.png' />`)
+                let demonImages = new Array(demon).fill(`<img class="p-1 solution-item" src='./demon.png' />`)
+                let destBankImg = `<img class="p-1 solution-item" src='${shipInFire ?"./riverbank.png" : "./fire-land.jpg" }' />`;
+                shipInFire = !shipInFire;
+                solutionHtml += `<div class="p-1 my-2 d-flex justify-content-center align-items-center">
+                    <span class="p-1 w-50">${monkImages.join("")} ${demonImages.join("")}</span>
+                    <span class="p-1 w-25">&rarr;</span>
+                    <span class="p-1 w-25">${destBankImg}</span>
+                </div><hr/>`;
+            }
+            console.log(solutionHtml);
+            PREVIEW_MODEL.html(solutionHtml);
+            PREVIEW_MODEL.addClass("preview-solution-modal--active");
+            return true;
+        });
 });
 
-function setActionAllItem() {
-    $(document).on('click', '.gamebar__bank--item', function () {
+function applyActionAllItems() {
+    $(document).on('click', '.gamebar__bank__item', function () {
         let Jthis = $(this);
         let itemPos = Jthis.attr('pos');
         switch (itemPos) {
@@ -372,6 +415,6 @@ function setActionAllItem() {
             default:
                 break;
         }
-        setStatusBar();
+        renderStatusBar();
     });
 }

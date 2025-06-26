@@ -55,7 +55,8 @@
       <div id="controller" class="col-sm-3">
          <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
          <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
-         <span class="btn btn-info wave-in-btn" id="controller__help">solution?</span>
+         <span class="btn btn-info wave-in-btn" id="controller__help">AI solving</span>
+         <span class="btn btn-info wave-in-btn" id="controller__solution" data-toggle="modal" data-target="#solutionModal">view solution</span>
       </div>
    </div>
    <div id="message-bar"></div>
@@ -88,14 +89,14 @@
       </div>
    </div>
 
-   <div class="gamebar__bank" id="gamebar__abank">
-      <img class="gamebar__bank--item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
-      <img class="gamebar__bank--item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
-      <img class="gamebar__bank--item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
+   <div class="gamebar__bank gamebar__bank--fire" id="gamebar__abank">
+      <img class="gamebar__bank__item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
+      <img class="gamebar__bank__item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
+      <img class="gamebar__bank__item monk" bank='a' pos='bank' src="./monk.png" alt="monk">
 
-      <img class="gamebar__bank--item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
-      <img class="gamebar__bank--item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
-      <img class="gamebar__bank--item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
+      <img class="gamebar__bank__item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
+      <img class="gamebar__bank__item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
+      <img class="gamebar__bank__item demon" bank='a' pos='bank' src="./demon.png" alt="demon">
    </div>
    <div id="gamebar__river">
       <div id="gamebar__river--ship" bank="a">
@@ -104,7 +105,27 @@
       </div>
    </div>
 
-   <div class="gamebar__bank" id="gamebar__bbank"></div>
+   <div class="gamebar__bank gamebar__bank--goal" id="gamebar__bbank"></div>
+
+   <div class="modal fade" id="solutionModal" tabindex="-1" aria-labelledby="solutionModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="solutionModalLabel">Solution</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div id="solution-step-container" class="modal-body">
+               Waiting for solution...
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
 
    <script src="./automatic_solution.js"></script>
    <script src="./handle_solution.js"></script>

@@ -70,14 +70,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-image: url('./riverbank.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     flex-wrap: wrap;
     overflow: auto;
 }
 
-.gamebar__bank--item {
+.gamebar__bank--fire {
+    background-image: url('./fire-land.jpg');
+}
+
+.gamebar__bank--goal {
+    background-image: url('./riverbank.png');
+}
+
+.gamebar__bank__item {
     text-align: center;
     display: inline-block;
     cursor: pointer;
@@ -88,7 +95,7 @@ body {
     z-index: 1;
 }
 
-.gamebar__bank--item:hover {
+.gamebar__bank__item:hover {
     box-shadow: 
         0rem 0.1rem  black,
         0.1rem 0rem  black,
@@ -182,4 +189,10 @@ body {
 #info {
     background-color: rgba(250, 245, 245, 0.2);
     backdrop-filter: blur(3px);
+}
+
+.solution-item {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
 }
