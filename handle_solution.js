@@ -302,7 +302,7 @@ $(document).ready(function () {
 
     CONTROLLER_MOVE
         .click(async function () {
-            if(isEnded) return;
+            if (isEnded) return;
 
             let nbShipDeckItems = SHIP_DECK.children().length;
             if (nbShipDeckItems > 0) {
@@ -360,6 +360,7 @@ $(document).ready(function () {
 
     CONTROLLER_VIEW
         .click(async function () {
+            PREVIEW_MODEL.html("");
             let monk = A_BANK.children('.monk').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.monk').length : 0);
             let demon = A_BANK.children('.demon').length + (SHIP.attr('bank') === 'a' ? SHIP_DECK.children('.demon').length : 0);
             let posShip = SHIP.attr('bank') === 'a' ? State.A_BANK : State.B_BANK;
@@ -367,7 +368,7 @@ $(document).ready(function () {
             let stt = new State(monk, demon, posShip);
             let aiSolution = AISolving.getSolution(stt);
             if (aiSolution.length === 0) {
-                alert('This input is no solutions');
+                PREVIEW_MODEL.html("This input is no solutions");
                 return true;
             }
             let solutionHtml = "";
@@ -377,7 +378,7 @@ $(document).ready(function () {
                 let { monk, demon } = operator;
                 let monkImages = new Array(monk).fill(`<img class="p-1 solution-item" src='./monk.png' />`)
                 let demonImages = new Array(demon).fill(`<img class="p-1 solution-item" src='./demon.png' />`)
-                let destBankImg = `<img class="p-1 solution-item" src='${shipInFire ?"./riverbank.png" : "./fire-land.jpg" }' />`;
+                let destBankImg = `<img class="p-1 solution-item" src='${shipInFire ? "./riverbank.png" : "./fire-land.jpg"}' />`;
                 shipInFire = !shipInFire;
                 solutionHtml += `<div class="p-1 my-2 d-flex justify-content-center align-items-center">
                     <span class="p-1 w-50">${monkImages.join("")} ${demonImages.join("")}</span>
@@ -385,7 +386,6 @@ $(document).ready(function () {
                     <span class="p-1 w-25">${destBankImg}</span>
                 </div><hr/>`;
             }
-            console.log(solutionHtml);
             PREVIEW_MODEL.html(solutionHtml);
             PREVIEW_MODEL.addClass("preview-solution-modal--active");
             return true;

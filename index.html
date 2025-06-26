@@ -20,7 +20,7 @@
             <table class="table table-borderless">
                <tr>
                   <td>Enter number of monk:</td>
-                  <td><input id="initor__valueMonk" type="number" min="0"></td>
+                  <td><input id="initor__valueMonk" type="number" min="1"></td>
                   <td><img class="item-img" src="./monk.png" alt="monk image"></td>
                   <td rowspan="3">
                      <span class="btn btn-success wave-in-btn" id="input-setter">Let go!</span>
@@ -28,7 +28,7 @@
                </tr>
                <tr>
                   <td>Enter number of demon:</td>
-                  <td><input id="initor__valueDemon" type="number" min="0"></td>
+                  <td><input id="initor__valueDemon" type="number" min="1"></td>
                   <td><img class="item-img" src="./demon.png" alt="demon image"></td>
                </tr>
                <tr>
@@ -56,7 +56,8 @@
          <span class="btn btn-primary wave-in-btn" id="controller__move">move</span>
          <span class="btn btn-dark wave-in-btn" id="controller__restart">restart</span>
          <span class="btn btn-info wave-in-btn" id="controller__help">AI solving</span>
-         <span class="btn btn-info wave-in-btn" id="controller__solution" data-toggle="modal" data-target="#solutionModal">view solution</span>
+         <span class="btn btn-info wave-in-btn" id="controller__solution" data-toggle="modal"
+            data-target="#solutionModal">view solution</span>
       </div>
    </div>
    <div id="message-bar"></div>
@@ -113,15 +114,14 @@
             <div class="modal-header">
                <h5 class="modal-title" id="solutionModalLabel">Solution</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true">&times;</span>
                </button>
             </div>
             <div id="solution-step-container" class="modal-body">
                Waiting for solution...
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">View done</button>
             </div>
          </div>
       </div>
